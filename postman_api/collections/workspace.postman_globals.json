@@ -1,0 +1,21 @@
+{
+	"id": "5c9031d7-4d1d-4752-894d-3068f513a060",
+	"values": [
+		{
+			"key": "IPServer",
+			"value": "http://130.193.37.179",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "IPSereverLog",
+			"value": "https://petfriends.skillfactory.ru",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2022-11-16T10:20:42.144Z",
+	"_postman_exported_using": "Postman/10.2.2"
+}

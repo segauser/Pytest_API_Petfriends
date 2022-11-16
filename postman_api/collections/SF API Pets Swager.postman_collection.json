@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "66c2c93c-2a7a-45b4-9137-dcd47015672f",
+		"name": "SF API Pets Swager",
+		"description": "Реализация методов API: [https://petfriends.skillfactory.ru/apidocs/#/default](https://petfriends.skillfactory.ru/apidocs/#/default)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12052308"
+	},
+	"item": [
+		{
+			"name": "/api/key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.collectionVariables.set(\"auth_key\", jsonData.key);\r",
+							"console.log(jsonData);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.variables.get(\"name\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "email",
+						"value": "abuser@abuser.com",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "abuser",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/key",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"key"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/pets?filter=my_pets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"first pets with new-created ID\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    // pm.expect(pm.variables.get(\"petid\")).to.eql(jsonData.pets[0].id);\r",
+							"pm.collectionVariables.set(\"pet_id\", jsonData.pets[0].id);\r",
+							"    console.log(jsonData);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets?filter=my_pets",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "my_pets"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "​/api​/pets​/set_photo​/{pet_id}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dog.jpg"
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dogTV.jpg",
+							"disabled": true
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dogTV2.txt",
+							"disabled": true
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dogTV2.jpg",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}​/api/pets/set_photo/:pet_id",
+					"host": [
+						"{{base_url}}​"
+					],
+					"path": [
+						"api",
+						"pets",
+						"set_photo",
+						":pet_id"
+					],
+					"variable": [
+						{
+							"key": "pet_id",
+							"value": "{{pet_id}}"
+						}
+					]
+				},
+				"description": "Load only .jpg"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/pets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    console.log(pm.variables.get(\"name\"));\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.variables.set(\"pet_id\", jsonData.id);\r",
+							"    console.log(pm.variables.get(\"name\"));\r",
+							"    console.log(jsonData);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.variables.get(\"name\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "{{type}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/error.jpeg"
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dogTV2.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets"
+					]
+				},
+				"description": "Load only .jpg"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/create_pet_simple without photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.variables.set(\"pet_id\", jsonData.id);\r",
+							"    console.log(pm.variables.get(\"name\"));\r",
+							"    console.log(jsonData);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.variables.get(\"name\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "{{type}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/create_pet_simple",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"create_pet_simple"
+					]
+				},
+				"description": "Load only .jpg"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/pets/:pet_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"in response new name not equal old name\", function () {\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.expect(pm.variables.get(\"name\")).to.not.equal(jsonData.name);\r",
+							"    pm.variables.set(\"name2\", jsonData.name);\r",
+							"    console.log(jsonData);\r",
+							"    console.log(pm.variables.get(\"name\"));\r",
+							"    console.log(pm.variables.get(\"name2\"));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(pm.variables.get(\"name\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{new_name}}",
+							"type": "text"
+						},
+						{
+							"key": "animal_type",
+							"value": "{{type}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "pet_photo",
+							"type": "file",
+							"src": "/F:/Desktop/dogTV.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets/:pet_id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets",
+						":pet_id"
+					],
+					"variable": [
+						{
+							"key": "pet_id",
+							"value": "{{pet_id}}1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/pets/:pet_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(jsonData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+						"type": "text"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/api/pets/:petid",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"pets",
+						":petid"
+					],
+					"variable": [
+						{
+							"key": "petid",
+							"value": "кукан"
+						}
+					]
+				},
+				"description": "Load only .jpg"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{auth_key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "auth_key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_key",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "abuser@abuser.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "abuser",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "https://petfriends.skillfactory.ru",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": "Rick",
+			"type": "string"
+		},
+		{
+			"key": "age",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "pet_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "new_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "name2",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
